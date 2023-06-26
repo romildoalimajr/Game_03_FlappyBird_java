@@ -22,7 +22,9 @@ public class Player extends Entity {
 		if (!isPressed) {
 			y += 2;
 		} else {
-			y -= 2;
+			if (y > 0) {
+				y -= 2;
+			}
 		}
 
 		if (y > Game.HEIGHT) {
@@ -49,10 +51,12 @@ public class Player extends Entity {
 			g2.rotate(Math.toRadians(20), this.getX() + width / 2, this.getY() + height / 2);
 			g2.drawImage(sprite, this.getX(), this.getY(), null);
 			g2.rotate(Math.toRadians(-20), this.getX() + width / 2, this.getY() + height / 2);
-		}else {
-			//g2.rotate(Math.toRadians(-20), this.getX() + width / 2, this.getY() + height / 2);
+		} else {
+			// g2.rotate(Math.toRadians(-20), this.getX() + width / 2, this.getY() + height
+			// / 2);
 			g2.drawImage(sprite, this.getX(), this.getY(), null);
-			//g2.rotate(Math.toRadians(20), this.getX() + width / 2, this.getY() + height / 2);
+			// g2.rotate(Math.toRadians(20), this.getX() + width / 2, this.getY() + height /
+			// 2);
 		}
 		// g.setColor(Color.red);
 		// g.fillRect(this.getX(), this.getY(), width, height);
