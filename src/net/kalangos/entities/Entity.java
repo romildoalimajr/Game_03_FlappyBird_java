@@ -33,7 +33,7 @@ public class Entity {
 	
 	public boolean debug = false;
 	
-	private BufferedImage sprite;
+	protected BufferedImage sprite;
 	
 	public static Random rand = new Random();
 	
