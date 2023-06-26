@@ -21,6 +21,7 @@ import net.kalangos.entities.Entity;
 import net.kalangos.entities.Player;
 import net.kalangos.graficos.Spritesheet;
 import net.kalangos.graficos.UI;
+import net.kalangos.world.TubeGenerator;
 
 public class Game extends Canvas implements Runnable,KeyListener,MouseListener,MouseMotionListener{
 
@@ -28,8 +29,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static JFrame frame;
 	private Thread thread;
 	private boolean isRunning = true;
-	public static final int WIDTH = 160;
-	public static final int HEIGHT = 120;
+	public static final int WIDTH = 240;
+	public static final int HEIGHT = 160;
 	public static final int SCALE = 3;
 	
 	private BufferedImage image;
@@ -38,8 +39,10 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static Spritesheet spritesheet;
 	public static Player player;
 	
+	public static TubeGenerator tubeGenerator;
+	
 	public UI ui;
-	public static int score = 0;
+	public static double score = 0;
  	
 	
 	public Game(){
@@ -53,9 +56,9 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		//Inicializando objetos.
 		spritesheet = new Spritesheet("/spritesheet.png");
 		entities = new ArrayList<Entity>();
-		player = new Player(WIDTH/2,HEIGHT/2,16,16,2,spritesheet.getSprite(0,0,16,16));
+		player = new Player(WIDTH/2 - 30,HEIGHT/2,16,16,2,spritesheet.getSprite(0,0,16,16));
+		tubeGenerator = new TubeGenerator();
 		ui = new UI();
-		//entities = new ArrayList<Entity>();
 		
 		entities.add(player);
 		
@@ -93,13 +96,12 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	
 	public void tick(){
 		
+		tubeGenerator.tick();
+		
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			e.tick();
-		}
-
-		
-		
+		}	
 	}
 	
 	public void render(){
@@ -109,7 +111,7 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 			return;
 		}
 		Graphics g = image.getGraphics();
-		g.setColor(new Color(122,102,255));
+		g.setColor(new Color(135,206,235));
 		g.fillRect(0, 0,WIDTH,HEIGHT);
 		
 		/*Renderiza��o do jogo*/
@@ -160,12 +162,18 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			player.isPressed = true;
+		}
 	
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			player.isPressed = false;
+		}
 		
 	}
 
